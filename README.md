@@ -29,4 +29,6 @@ Du skall även lämna in en reflekterande text över hur du har arbetat med ditt
 Du behöver inte beskriva så mycket “hur” du har löst uppgiften, det ser vi när vi tittar på ditt repo, utan du ska beskrva ditt “varför”.
 
 
+My Projectplan
+
 <img src="assets/Retrospectives2.jpg" alt="Projectplan">
