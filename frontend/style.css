@@ -1,0 +1,71 @@
+header{
+    background-image: url("./source/document1.jpg");
+    background-color: #cccccc;
+    background-size: cover;
+}
+
+h1{
+    font-size:6rem;
+    margin: 0px; 
+    padding: 40px;
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+    color:rgb(255, 255, 255);
+}
+
+#loginUser, #savenewUser, .userh3 {
+    display: inline;
+    padding: 15px;
+}
+
+#userContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: lightgrey;
+}
+
+.userInput{
+    margin-right: 20px;
+}
+
+nav{
+    font-size: 2rem;
+}
+
+ul{
+    display:flex;
+    justify-content: space-around;
+}
+
+li{
+    list-style: none;
+    display: inline-block; 
+    padding: 10px;
+    background-color: lightgrey;
+    border-radius: 10px;
+}
+
+
+.firstSiteSection{
+    background-image: url("./source/headSiteImg.jpg");
+    background-color: #cccccc;
+    background-size: cover;
+    padding: 20px 150px;
+    font-size:1.5rem;
+}
+
+footer{
+    color: black;
+    padding-left: 15px;
+    padding-top: 25px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.5rem;
+}
+
+/* visited link */
+.linkFooter {
+    color: black;
+}
