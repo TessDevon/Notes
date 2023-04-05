@@ -1,4 +1,5 @@
 import whritesite from "./whritesite.js"
+import shownotesite from "./shownotesite.js";
 
 
 
@@ -25,6 +26,8 @@ newNoteLi.addEventListener("click", whritesite);
 //
 // VÄLXA TILL DOKUMENTVYN
 //
+const myNotesLi = document.getElementById("myNotesLi")
+myNotesLi.addEventListener("click", shownotesite);
 
 
 /*------------------------------------------------------------------------------------
