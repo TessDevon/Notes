@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const CryptoJS = require("crypto-js");
-
+const mysql = require('mysql2');
 
 
 //
@@ -19,7 +19,7 @@ router.post('/', function(req, res) {
 
       let passwordToSave = CryptoJS.SHA3(req.body.newPassword).toString()
 
-      let sql = `INSERT INTO users (userEmail, userPassword, userFirstname, userLastname) VALUES ('${newUser.newEmail}', '${passwordToSave}', '${newUser.newFirstname}', '${newUser.newLastname}')`;
+      let sql = `INSERT INTO users (userEmail, userPassword, userFirstname, userLastname) VALUES (${mysql.escape(newUser.newEmail)}, ${mysql.escape(passwordToSave)}, ${mysql.escape(newUser.newFirstname)}, ${mysql.escape(newUser.newLastname)})`;
 
       req.app.locals.con.query(sql, function(err, result) {
       if (err) {
@@ -52,7 +52,8 @@ router.post('/login', function(req,res){
     let passwordToCheck = CryptoJS.SHA3(userPassword).toString()
     console.log(passwordToCheck);
 
-    let sql = `SELECT userEmail, userPassword, userId FROM users WHERE userEmail = '${userEmail}'`;
+    let sql = `SELECT userEmail, userPassword, userId FROM users WHERE userEmail = ${mysql.escape(userEmail)}`;
+    console.log(sql);
 
     req.app.locals.con.query(sql, function(err, result) {
       if (err) {
