@@ -7,6 +7,7 @@
     <title>Notes</title>
 
     <link href="style.css" rel="stylesheet"/>
+    <script src="../node_modules/tinymce/tinymce.min.js"></script>
     <script src="script.js" defer type="module" ></script>
 
 </head>
@@ -18,33 +19,39 @@
     <div id="userContainer">
         <div id="loginUser">
             <h3 class="userh3">Inloggning</h3>
-            <label for="name">E-post:</label>
-            <input class="userInput" type="text" id="name" name="name">
-            <label for="password">Lösenord:</label>
-            <input class="userInput" type="text" id="password" name="password">
-            <button id="loginUserBtn">Logga in</button>
+            <label for="userEmail">E-post:</label>
+            <input class="userInput" type="email" id="userEmail" name="userEmail">
+            <label for="userPassword">Lösenord:</label>
+            <input class="userInput" type="text" id="userPassword" name="userPassword">
+            <button class="userInput" id="loginUserBtn">Logga in</button>
         </div>
         <p id="serverMassage"></p>
         <div id="savenewUser">
             <h3 class="userh3">Ny användare</h3>
-            <label for="newname">E-post:</label>
-            <input class="userInput" type="text" id="newname" name="newname">
-            <label for="newpassword">Lösenord:</label>
-            <input class="userInput" type="text" id="newpassword" name="newpassword">
-            <button id="saveUserBtn">Spara ny användare</button>
+
+            <label for="newFirstname">Förnamn</label>
+            <input class="userInput" type="text" id="newFirstname" name="newFirstname">
+            <label for="newLastname">Efternamn</label>
+            <input class="userInput" type="text" id="newLastname" name="newLastname">
+
+            <label for="newEmail">E-post:</label>
+            <input class="userInput" type="email" id="newEmail" name="newEmail">
+            <label for="newPassword">Lösenord:</label>
+            <input class="userInput" type="text" id="newPassword" name="newPassword">
+            <button class="userInput" id="saveUserBtn">Spara ny användare</button>
         <!--<input type="submit" value="Skicka">-->
         </div>
     </div>
     <nav>
         <ul>
-            <li>Huvudsida</li>
-            <li>Mina dokument</li>
-            <li>Skapa nytt dokument</li>
+            <li id="headpageLi">Huvudsida</li>
+            <li id="myNotesLi">Mina dokument</li>
+            <li id="newNoteLi">Skapa nytt dokument</li>
         </ul>
     </nav>
     <div id="root">
         <section class="firstSiteSection">
-            <h2>Välkommen till Dokumenthanteraren!</h2>
+            <h2 class="firstSiteH3">Välkommen till Dokumenthanteraren!</h2>
             <article>
                 <h3>Vår vission</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborumSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?.</p>
