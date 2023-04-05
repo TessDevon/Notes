@@ -1,9 +1,11 @@
 require("dotenv").config();
 
 var express = require('express');
+var router = express.Router();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var CryptoJS = require("crypto-js");
 
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -32,5 +34,9 @@ app.locals.con = mysql.createConnection({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+
+
+
 
 module.exports = app;
