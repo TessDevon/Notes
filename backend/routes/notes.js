@@ -29,7 +29,34 @@ router.post('/', function(req, res) {
       })
     })
   });
+
   
+  //
+  // HÄMTA EN SPECIFIK ANVÄNDARES NOTES. 
+  //
+
+  router.get('/:id', function(req, res) {
+    let unserId = req.params.id
+  
+    req.app.locals.con.connect(function (err) {
+        if (err) {
+            console.log(err);
+        }
+  
+        let sql = `SELECT noteId, noteName, userId FROM notes WHERE userID = '${unserId}'`;
+  
+        req.app.locals.con.query(sql, function(err, result) {
+        if (err) {
+            console.log(err)
+          }
+          console.log("result", result);
+          res.send(result);
+      })
+    })
+  });
+
+
+
 
 
 module.exports = router;
