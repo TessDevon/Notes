@@ -100,11 +100,34 @@ footer{
 /*    font-size:1.5rem;*/
 }
 
+.noteNameInfo{
+    font-size:1.5rem;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
 .textResult{
     background-color: white;
     border-radius: 10px;
     margin: 2px;
 
+}
+
+.noteNameInput{
+    font-size:1.5rem;
+    margin-left: 15px;
+    margin-top:25px;
+    margin-bottom: 40px;
+
+}
+
+.seeNoteInDOMBtn{
+    font-size:1.5rem;
+    margin:15px;
+    position:relative;
+    left: 90vw;
+    background-color:white;
+    border-radius:10px;
+    padding: 5px;
 }
 
 
