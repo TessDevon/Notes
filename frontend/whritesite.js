@@ -10,6 +10,18 @@ export default function whritesite () {
     whriteH2.className = "whriteH2";
     root.appendChild(whriteH2);
     whriteH2.innerHTML = "Skapa nytt dokument";
+
+    const noteNameInfo = document.createElement("span");
+    noteNameInfo.classList = "noteNameInfo";
+    noteNameInfo.id = "noteNameInfo";
+    root.appendChild(noteNameInfo);
+    noteNameInfo.innerHTML = "Dokumentnamn"
+
+    let noteNameInput = document.createElement("INPUT");
+    noteNameInput.setAttribute("type", "text")
+    noteNameInput.id = "noteNameInput";
+    noteNameInput.className = "noteNameInput";
+    root.appendChild(noteNameInput);
     
     let textarea = document.createElement("TEXTAREA");
     textarea.id = "textarea";
@@ -19,7 +31,7 @@ export default function whritesite () {
     const seeNotesInDOMBtn = document.createElement("button");
     seeNotesInDOMBtn.id = "seeNoteInDOMBtn";
     seeNotesInDOMBtn.className = "seeNoteInDOMBtn";
-    seeNotesInDOMBtn.innerHTML = "Se resultatet";
+    seeNotesInDOMBtn.innerHTML = "Spara";
     root.appendChild(seeNotesInDOMBtn);
     
     let seeNotesInDOM = document.createElement("div");
@@ -32,9 +44,8 @@ export default function whritesite () {
 
     tinymce.init({
         selector: "textarea",
-
-        
-
+        plugin: "connected",
+        toolbar: "undo redo | forecolor backcolor | styleselect bold italic | alignleft alignright | H1 H3 code",  
         setup: function(editor) {
             editor.on("change", function(){
                 editor.save();
@@ -45,7 +56,35 @@ export default function whritesite () {
     seeNotesInDOMBtn.addEventListener("click", function() {
 
         document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
+        saveNote();
+
     })
 
-
 }
+
+function saveNote () {
+
+    const noteNameInput = document.getElementById("noteNameInput").value;
+    const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
+    const userIdToSave = userInfo.id;
+    const userToken = userInfo.token;
+    let noteToSave = document.getElementById("textarea").value;
+
+
+
+    fetch("http://localhost:3000/notes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({noteName:noteNameInput, noteBlob:noteToSave, userId:userIdToSave, token:userToken})
+    })
+    .then(res => res.json())
+    .then(data => {
+        //console.log("skapa item", data);
+        //printTodos();
+        
+    })
+}
+
+

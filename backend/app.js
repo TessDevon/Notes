@@ -12,6 +12,7 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var notesRouter = require('./routes/notes');
 
 var app = express();
 
@@ -34,6 +35,7 @@ app.locals.con = mysql.createConnection({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/notes', notesRouter);
 
 
 
