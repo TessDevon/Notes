@@ -35,6 +35,7 @@ myNotesLi.addEventListener("click", shownotesite);
 ------------------------------------------------------------------------------------*/ 
 
 
+
 //
 // REGISTRERA NY ANVÄNDARE
 //
@@ -68,12 +69,10 @@ saveUserBtn.addEventListener("click", () => {
 })
 
 
+
 //
 // LOGGA IN ANVÄNDARE
 //
-
-
-
 
 let userEmail = document.getElementById("userEmail");
 let userPassword = document.getElementById("userPassword");

@@ -50,7 +50,7 @@ router.post('/', function(req, res) {
         if (err) {
             console.log(err)
           }
-          console.log("result", result);
+      //    console.log("result", result);
           res.send(result);
       })
     })
@@ -77,7 +77,7 @@ router.post('/', function(req, res) {
           data.map(text => {
             text.noteBlob = Buffer.from(text.noteBlob).toString();
           })
-          console.log("data", data);  
+         // console.log("data", data);  
          
           res.json(data);
           })
