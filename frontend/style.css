@@ -16,7 +16,7 @@ h1{
 }
 
 #loginUser, #savenewUser, .userh3 {
-    display: inline;
+   /* display: inline; */
     padding: 15px;
     font-family:Arial, Helvetica, sans-serif;
 }
@@ -50,6 +50,12 @@ li{
     border-radius: 10px;
 }
 
+li:active {
+    background-color: #7d7d7d;
+    box-shadow: 0 5px #4b4b4b;
+    transform: translateY(1px);
+  }
+
 
 .firstSiteSection{
     background-image: url("./source/headSiteImg.jpg");
@@ -81,6 +87,14 @@ footer{
     text-align:center;
     font-family:'Times New Roman', Times, serif;
 }
+
+#loginUserBtn #saveUserBtn{
+    position:relative;
+    left:50px;
+    margin:20px;
+}
+
+
 
 
 /*-----------------------------------------------------------------------------------------------------------------------------------
