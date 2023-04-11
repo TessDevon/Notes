@@ -35,7 +35,7 @@ router.post('/', function(req, res) {
   // HÄMTA EN SPECIFIK ANVÄNDARES NOTES. 
   //
 
-  router.get('/:id', function(req, res) {
+  router.get('/user/:id', function(req, res) {
     let unserId = req.params.id
   
     req.app.locals.con.connect(function (err) {
@@ -43,7 +43,8 @@ router.post('/', function(req, res) {
             console.log(err);
         }
   
-        let sql = `SELECT noteId, noteName, userId FROM notes WHERE userID = '${unserId}'`;
+        let sql = `SELECT noteId, noteName, userId FROM notes WHERE userID = ${unserId}`;
+        console.log(sql);
   
         req.app.locals.con.query(sql, function(err, result) {
         if (err) {
@@ -55,7 +56,33 @@ router.post('/', function(req, res) {
     })
   });
 
+  //
+  // HÄMTA EN NOTE GENOM ID. 
+  //
 
+  router.get('/:noteId', function(req, res) {
+    let noteId = req.params.noteId
+  
+    req.app.locals.con.connect(function (err) {
+        if (err) {
+            console.log(err);
+        }
+  
+        let sql = `SELECT noteId, noteName, noteBlob, userId FROM notes WHERE noteId = '${noteId}'`;
+  
+        req.app.locals.con.query(sql, function(err, data) {
+        if (err) {
+            console.log(err)
+          }
+          data.map(text => {
+            text.noteBlob = Buffer.from(text.noteBlob).toString();
+          })
+          console.log("data", data);  
+         
+          res.json(data);
+          })
+    })
+  });
 
 
 

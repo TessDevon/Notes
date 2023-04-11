@@ -27,7 +27,7 @@ function findAndWhriteUserNotes () {
     console.log(userToken);
     userToken
     
-        fetch("http://localhost:3000/notes/" + userIdToSave, {
+        fetch("http://localhost:3000/notes/user/" + userIdToSave, {
             method:"GET",
             headers: {
                 "Content-Type": "application/json",
@@ -42,25 +42,55 @@ function findAndWhriteUserNotes () {
         .then(data => {
 
         
-        data.map(note => {
+            data.map(note => {
 
-        const showNotesDiv = document.createElement("article");
-        showNotesDiv.classList = "showNotesDiv";
-        showNotesDiv.id = "showNotesDiv";
-        root.appendChild(showNotesDiv)
+                const showNotesDiv = document.createElement("article");
+                showNotesDiv.classList = "showNotesDiv";
+                showNotesDiv.id = "showNotesDiv";
+                root.appendChild(showNotesDiv)
 
-        const noteName = document.createElement("p");
-        noteName.classList = "noteName";
-        noteName.id = "noteName";
-        noteName.innerHTML = note.noteName;
-        showNotesDiv.appendChild(noteName);   
+                const noteName = document.createElement("p");
+                noteName.classList = "noteName";
+                noteName.id = note.noteId;
+                noteName.innerHTML = note.noteName;
+                showNotesDiv.appendChild(noteName);   
+                noteName.addEventListener("click", (e) => {
+                    ChangeSavedNote(e.target.id);    
+                })  
+            })
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+    }); 
+
+}
+
+
+function ChangeSavedNote (noteId) {
+
+    console.log(noteId);
+
+    fetch("http://localhost:3000/notes/" + noteId, {
+            method:"GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(res => {
+            if(!res.ok) {
+                throw new Error("Network response was not OK")
+            }
+                return res.json()
+            })
+
+        .then(data => {
             
         })
+
         .catch((error) => {
             console.error("Error:", error);
         });
 
-    }); 
+    };
 
-}
 
