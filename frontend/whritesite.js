@@ -31,13 +31,19 @@ export default function whritesite () {
     const seeNotesInDOMBtn = document.createElement("button");
     seeNotesInDOMBtn.id = "seeNoteInDOMBtn";
     seeNotesInDOMBtn.className = "seeNoteInDOMBtn";
-    seeNotesInDOMBtn.innerHTML = "Spara";
+    seeNotesInDOMBtn.innerHTML = "Visa dokumentet";
     root.appendChild(seeNotesInDOMBtn);
     
     let seeNotesInDOM = document.createElement("div");
     seeNotesInDOM.id  = "textResult";
     seeNotesInDOM.className = "textResult";
     root.appendChild(seeNotesInDOM);
+
+    const saveNoteBtn = document.createElement("button");
+    saveNoteBtn.id = "saveNoteBtn";
+    saveNoteBtn.className = "saveNoteBtn";
+    saveNoteBtn.innerHTML = "Spara dokumentet";
+    root.appendChild(saveNoteBtn);
 
 
 
@@ -56,9 +62,17 @@ export default function whritesite () {
     seeNotesInDOMBtn.addEventListener("click", function() {
 
         document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
+
+    })
+
+
+    saveNoteBtn.addEventListener("click", function() {
+        
         saveNote();
 
     })
+
+    
 
 }
 
