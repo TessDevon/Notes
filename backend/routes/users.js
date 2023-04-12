@@ -17,20 +17,44 @@ router.post('/', function(req, res) {
           console.log(err);
       }
 
-      let passwordToSave = CryptoJS.SHA3(req.body.newPassword).toString()
-
-      let sql = `INSERT INTO users (userEmail, userPassword, userFirstname, userLastname) VALUES (${mysql.escape(newUser.newEmail)}, ${mysql.escape(passwordToSave)}, ${mysql.escape(newUser.newFirstname)}, ${mysql.escape(newUser.newLastname)})`;
+      let sql = `SELECT userEmail FROM users WHERE userEmail = ${mysql.escape(newUser.newEmail)}`;
 
       req.app.locals.con.query(sql, function(err, result) {
       if (err) {
           console.log(err)
         }
         console.log("result", result);
-        res.send(result);
+        if (result.length == 0){
+          createNewUser(req, res);  
+          return;     
+        }
+        res.send(401);
     })
   })
 });
 
+function createNewUser (req, res) {
+    let newUser = req.body;
+    console.log(newUser);
+
+    req.app.locals.con.connect(function (err) {
+        if (err) {
+            console.log(err);
+        }
+
+        let passwordToSave = CryptoJS.SHA3(req.body.newPassword).toString()
+
+        let sql = `INSERT INTO users (userEmail, userPassword, userFirstname, userLastname) VALUES (${mysql.escape(newUser.newEmail)}, ${mysql.escape(passwordToSave)}, ${mysql.escape(newUser.newFirstname)}, ${mysql.escape(newUser.newLastname)})`;
+
+        req.app.locals.con.query(sql, function(err, result) {
+        if (err) {
+            console.log(err)
+          }
+          console.log("result", result);
+          res.send(result);
+      })
+    })
+  };
 
 
 //

@@ -46,6 +46,8 @@ let newEmail = document.getElementById("newEmail");
 let newPassword = document.getElementById("newPassword");
 let saveUserBtn = document.getElementById("saveUserBtn");
 let userInput = document.getElementsByClassName("userInput");
+const serverMessage = document.getElementById("errorMessage");
+
 
 
 saveUserBtn.addEventListener("click", () => {
@@ -57,16 +59,20 @@ saveUserBtn.addEventListener("click", () => {
             "Content-Type": "application/json",      
         },
         body: JSON.stringify({newEmail:newEmail.value, newPassword:newPassword.value, newFirstname:newFirstname.value, newLastname:newLastname.value})
-    
     })
     .then(res => res.json())
     .then(data => {
-        //console.log("skapa item", data);
-        //printTodos();
-        
+        serverMessage.innerHTML = ""
+        for (let element of userInput) {
+            element.value = ""
+        }
     })
-    userInput.innerHTML = ""
-})
+    .catch ((err) => {
+        console.log(err)
+        serverMessage.style.color = "red";
+        serverMessage.innerHTML = "Error! Emailen finns redan i databasen!"
+    });
+});
 
 
 
@@ -100,6 +106,9 @@ loginUserBtn.addEventListener("click", () => {
     })
     .then(data =>{
         localStorage.setItem("userIdLocalStorage", JSON.stringify({id:data.userId, token:data.token}))
+        for (let element of userInput) {
+            element.value = ""
+        }
     })
     .catch ((err) => {
     
