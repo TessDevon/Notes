@@ -39,15 +39,6 @@ export default function whritesite () {
     seeNotesInDOM.className = "textResult";
     root.appendChild(seeNotesInDOM);
 
-    const saveNoteBtn = document.createElement("button");
-    saveNoteBtn.id = "saveNoteBtn";
-    saveNoteBtn.className = "saveNoteBtn";
-    saveNoteBtn.innerHTML = "Spara dokumentet";
-    root.appendChild(saveNoteBtn);
-
-
-
-
     tinymce.init({
         selector: "textarea",
         plugin: "connected",
@@ -63,28 +54,30 @@ export default function whritesite () {
 
         document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
 
+        const saveNoteBtn = document.createElement("button");
+        saveNoteBtn.id = "saveNoteBtn";
+        saveNoteBtn.className = "saveNoteBtn";
+        saveNoteBtn.innerHTML = "Spara dokumentet";
+        root.appendChild(saveNoteBtn);
+        const saveMessageP = document.createElement("p");
+        saveMessageP.id = "saveMessageP";
+        saveMessageP.className = "saveMessageP";
+        root.appendChild(saveMessageP);
+
+            saveNoteBtn.addEventListener("click", function() {
+                saveNote();
+            })
     })
-
-
-    saveNoteBtn.addEventListener("click", function() {
-        
-        saveNote();
-
-    })
-
-    
-
 }
 
 function saveNote () {
-
     const noteNameInput = document.getElementById("noteNameInput").value;
     const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
     const userIdToSave = userInfo.id;
     const userToken = userInfo.token;
     let noteToSave = document.getElementById("textarea").value;
-
-
+    const saveMessageP = document.getElementById("saveMessageP");
+    saveMessageP.innerHTML = ""
 
     fetch("http://localhost:3000/notes", {
         method: "POST",
@@ -95,10 +88,21 @@ function saveNote () {
     })
     .then(res => res.json())
     .then(data => {
-        //console.log("skapa item", data);
-        //printTodos();
+        const noteNameInput = document.getElementById("noteNameInput")
+        noteNameInput.value = ""
+        tinymce.activeEditor.setContent("");
+        const saveMessageP = document.getElementById("saveMessageP");
+        saveMessageP.innerHTML = ""
+        const textResult = document.getElementById("textResult")
+        textResult.innerHTML = ""
+
         
     })
+    .catch ((err) => {
+        
+        saveMessageP.style.color = "red";
+        saveMessageP.innerHTML = "Error! Namnet finns redan. Välj en anna rubrik.";
+    });
 }
 
 

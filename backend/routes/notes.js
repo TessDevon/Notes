@@ -8,28 +8,51 @@ const mysql = require('mysql2');
 //
 
 router.post('/', function(req, res) {
-    let newNote = req.body;
-    console.log(newNote);
-  
-    req.app.locals.con.connect(function (err) {
-        if (err) {
-            console.log(err);
-        }
-  
-        //Kodas ngt för att blobba?
-  
-        let sql = `INSERT INTO notes (noteName, noteBlob, userId) VALUES (${mysql.escape(newNote.noteName)}, ${mysql.escape(newNote.noteBlob)}, ${mysql.escape(newNote.userId)})`;
-  
-        req.app.locals.con.query(sql, function(err, result) {
-        if (err) {
-            console.log(err)
-          }
-          console.log("result", result);
-          res.send();
-      })
-    })
-  });
+  let newNote = req.body;
+  console.log(newNote);
 
+  req.app.locals.con.connect(function (err) {
+      if (err) {
+          console.log(err);
+      }
+
+      let sql = `SELECT noteName FROM notes WHERE noteName = ${mysql.escape(newNote.noteName)}`;
+
+      req.app.locals.con.query(sql, function(err, result) {
+      if (err) {
+          console.log(err)
+        }
+        console.log("result", result);
+        if (result.length == 0){
+          createNewNote(req, res);  
+          return;     
+        }
+        res.send(401);
+    })
+  })
+});
+
+
+function createNewNote (req, res) {
+  let newNote = req.body;
+  console.log(newNote);
+  
+  req.app.locals.con.connect(function (err) {
+    if (err) {
+      console.log(err);
+    }
+          
+    let sql = `INSERT INTO notes (noteName, noteBlob, userId) VALUES (${mysql.escape(newNote.noteName)}, ${mysql.escape(newNote.noteBlob)}, ${mysql.escape(newNote.userId)})`;
+          
+    req.app.locals.con.query(sql, function(err, result) {
+    if (err) {
+      console.log(err)
+    }
+    console.log("result", result);
+      res.send(result);
+    })
+  })
+}
   
   //
   // HÄMTA EN SPECIFIK ANVÄNDARES NOTES. 
