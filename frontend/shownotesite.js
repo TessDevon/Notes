@@ -112,20 +112,7 @@ function changeNote (data) {
     whriteH2.id = "whriteH2";
     whriteH2.className = "whriteH2";
     root.appendChild(whriteH2);
-    whriteH2.innerHTML = "Ändra dokument";
-
-    const noteNameInfo = document.createElement("span");
-    noteNameInfo.classList = "noteNameInfo";
-    noteNameInfo.id = "noteNameInfo";
-    root.appendChild(noteNameInfo);
-    noteNameInfo.innerHTML = "Dokumentnamn"
-
-    let noteNameInput = document.createElement("INPUT");
-    noteNameInput.setAttribute("type", "text")
-    noteNameInput.id = "noteNameInput";
-    noteNameInput.className = "noteNameInput";
-    noteNameInput.value = noteNameToChange;
-    root.appendChild(noteNameInput);
+    whriteH2.innerHTML = "Redigera  " + noteNameToChange;
     
     let textarea = document.createElement("TEXTAREA");
     textarea.id = "textarea";
@@ -135,13 +122,18 @@ function changeNote (data) {
 
     const seeNotesInDOMBtn = document.createElement("button");
     seeNotesInDOMBtn.id = "seeNoteInDOMBtn";
+    let noteId = data[0].noteId;
+    seeNotesInDOMBtn.noteId = noteId
     seeNotesInDOMBtn.className = "seeNoteInDOMBtn";
-    seeNotesInDOMBtn.innerHTML = "Spara";
+    seeNotesInDOMBtn.innerHTML = "Visa";
     root.appendChild(seeNotesInDOMBtn);
+
+
     
     let seeNotesInDOM = document.createElement("div");
     seeNotesInDOM.id  = "textResult";
     seeNotesInDOM.className = "textResult";
+    
     root.appendChild(seeNotesInDOM);
 
 
@@ -154,34 +146,64 @@ function changeNote (data) {
                 editor.save();
             })
         }
-    })
+    })    
+    
 
-    seeNotesInDOMBtn.addEventListener("click", function() {
+
+    seeNotesInDOMBtn.addEventListener("click", function(event) {
 
         document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
-        saveNote();
+
+        const saveNoteBtn = document.createElement("button");
+        saveNoteBtn.id = "saveNoteBtn";
+        saveNoteBtn.className = "saveNoteBtn";
+        let noteId = event.target.noteId;
+        saveNoteBtn.noteId = noteId
+        saveNoteBtn.innerHTML = "Spara över dokumentet";
+        root.appendChild(saveNoteBtn);
+
+        const deleteNoteBtn = document.createElement("button");
+        deleteNoteBtn.id = "deleteNoteBtn";
+        deleteNoteBtn.className = "deleteNoteBtn";
+        deleteNoteBtn.noteId = noteId
+        deleteNoteBtn.innerHTML = "Radera dokumentet";
+        root.appendChild(deleteNoteBtn);
+
+        const saveMessageP = document.createElement("p");
+        saveMessageP.id = "saveMessageP";
+        saveMessageP.className = "saveMessageP";
+        root.appendChild(saveMessageP);
+
+            saveNoteBtn.addEventListener("click", function(event) {
+                saveChangedNote(event.target.noteId);
+            })
+
+            deleteNoteBtn.addEventListener("click", function(event) {
+                deleteNote(event.target.noteId);
+            })
 
     })
 
 }
 
-/*
-function saveChangedNote () {
+
+function saveChangedNote (noteId) {
 
     const noteNameInput = document.getElementById("noteNameInput").value;
     const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
     const userIdToSave = userInfo.id;
+    const noteIdTosave = noteId;
     const userToken = userInfo.token;
     let noteToSave = document.getElementById("textarea").value;
 
 
 
-    fetch("http://localhost:3000/notes", {
+    fetch("http://localhost:3000/notes/changeNote", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({noteName:noteNameInput, noteBlob:noteToSave, userId:userIdToSave, token:userToken})
+        body: JSON.stringify({ noteId:noteIdTosave, noteName:noteNameInput, noteBlob:noteToSave, userId:userIdToSave, token:userToken})
     })
     .then(res => res.json())
     .then(data => {
@@ -189,4 +211,23 @@ function saveChangedNote () {
         //printTodos();
         
     })
-} */
+} 
+
+function deleteNote (noteId) {
+    const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
+    const userIdToSave = userInfo.id;
+    const noteIdTosave = noteId;
+    const userToken = userInfo.token;
+
+    fetch("http://localhost:3000/notes/deleteNote", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ noteId:noteIdTosave, userId:userIdToSave, token:userToken})
+    })
+    .then(res => res.json())
+    .then(data => {
+        
+    })
+} 

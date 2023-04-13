@@ -36,18 +36,6 @@ My Projectplan
 ******************************************************************************************
 
 Kvar att göra: 
-Spara första gången: 
-* Visa dok
-* Spara i DB 
-    * Spara om note ej finnes med det namnet för den användaren - skicka tillbaka ID
-    ** Töm fältet
-    * Felmeddelande att namnet redan finns. 
-Uppdatera en note: 
-* Spara endast över rådatan. 
-* Spara om titeln om ej finnes hos anvId.
-* Sparas på samma noteId som är hämtad ifrån.
-
-Bara en mail ska kunna registreras en gång.
 
 Kolla över designen på inloggningen.
 

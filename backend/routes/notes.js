@@ -103,10 +103,56 @@ function createNewNote (req, res) {
          // console.log("data", data);  
          
           res.json(data);
-          })
+        })
     })
   });
 
 
+  //
+  //Redigera rådata till befintligt noteId
+  //
+
+  router.post('/changeNote', function(req, res) {
+    let noteData = req.body;
+
+    req.app.locals.con.connect(function (err) {
+      if (err) {
+        console.log(err);
+      }
+      let sql = `UPDATE notes SET noteBlob = ${mysql.escape(noteData.noteBlob)} WHERE userId = ${mysql.escape(noteData.userId)} AND noteId = ${mysql.escape(noteData.noteId)}`;
+      req.app.locals.con.query(sql, function(err, data) {
+        if (err) {
+          console.log(err)
+        }
+        // console.log("data", data);   
+        res.json(data);
+      })
+    })
+  });
+
+
+  
+  //
+  // Radera bestämd note genom en inloggad användare. 
+  //
+
+  router.post('/deleteNote', function(req, res) {
+    let noteData = req.body;
+
+    req.app.locals.con.connect(function (err) {
+      if (err) {
+        console.log(err);
+      }
+      let sql = `DELETE FROM notes WHERE userId = ${mysql.escape(noteData.userId)} AND noteId = ${mysql.escape(noteData.noteId)}`;
+      req.app.locals.con.query(sql, function(err, data) {
+        if (err) {
+          console.log(err)
+        }
+        // console.log("data", data);   
+        res.json(data);
+      })
+    })
+  });
 
 module.exports = router;
+
