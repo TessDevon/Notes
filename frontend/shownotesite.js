@@ -114,7 +114,9 @@ function changeNote (data) {
     whriteH2.className = "whriteH2";
     editingContainer.appendChild(whriteH2);
     whriteH2.innerHTML = "Redigera  " + noteNameToChange;
+
     
+
     let textarea = document.createElement("TEXTAREA");
     textarea.id = "redTextarea";
     textarea.className = "redTextarea";
@@ -137,7 +139,7 @@ function changeNote (data) {
     editingContainer.appendChild(seeNotesInDOM);
 
     tinymce.remove();
-
+    
     tinymce.init({
         selector: "#redTextarea",
         plugin: "connected",

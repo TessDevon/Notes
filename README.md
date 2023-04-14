@@ -28,6 +28,7 @@ Det skall i WYSIWYG editorn gå att ändra både textfärg och bakgrundsfärg i 
 Du skall även lämna in en reflekterande text över hur du har arbetat med ditt projekt. Vilka beslut har du tagit, vilka problem har du fastnat i och hur har du valt att lösa dessa. Max 2 A4.
 Du behöver inte beskriva så mycket “hur” du har löst uppgiften, det ser vi när vi tittar på ditt repo, utan du ska beskrva ditt “varför”.
 
+*******************************************************************************************************
 
 Min projektplan:
 
