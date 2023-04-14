@@ -26,9 +26,6 @@ function findAndWhriteUserNotes () {
     const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
     const userIdToSave = userInfo.id;
     const userToken = userInfo.token;
-    console.log(userIdToSave);
-    console.log(userToken);
-    userToken
     
         fetch("http://localhost:3000/notes/user/" + userIdToSave, {
             method:"GET",
@@ -37,16 +34,14 @@ function findAndWhriteUserNotes () {
             },
         })
         .then(res => {
-            if(!res.ok) {
-                throw new Error("Network response was not OK")
-            }
+                if(!res.ok) {
+                    throw new Error("Network response was not OK")
+                }
                 return res.json()
             })
         .then(data => {
-
         
             data.map(note => {
-
                 const showNotesDiv = document.createElement("article");
                 showNotesDiv.classList = "showNotesDiv";
                 showNotesDiv.id = "showNotesDiv";
@@ -73,37 +68,31 @@ function ChangeSavedNote (noteId) {
 
     let root = document.getElementById("root")
 
-
-    console.log(noteId);
-
     fetch("http://localhost:3000/notes/" + noteId, {
-            method:"GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        .then(res => {
-            if(!res.ok) {
-                throw new Error("Network response was not OK")
-            }
-                return res.json()
-            })
+        method:"GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .then(res => {
+        if(!res.ok) {
+            throw new Error("Network response was not OK")
+        }
+            return res.json()
+    })
 
-        .then(data => {
+    .then(data => {
+        changeNote(data);
+    })
 
-
-            changeNote(data);
-
-        })
-
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+    .catch((error) => {
+        console.error("Error:", error);
+    });
 };
 
+
+
 function changeNote (data) {
-        
-    console.log(data);
 
     let root = document.getElementById("root")
 
@@ -119,8 +108,6 @@ function changeNote (data) {
 
     const noteNameToChange = data[0].noteName;
     const noteBlobToChange = data[0].noteBlob;
-    console.log(noteNameToChange);
-
 
     const whriteH2 = document.createElement("h2");
     whriteH2.id = "whriteH2";
@@ -191,16 +178,14 @@ const changeContainer = document.createElement("div");
         saveMessageP.className = "saveMessageP";
         changeContainer.appendChild(saveMessageP);
 
-            saveNoteBtn.addEventListener("click", function(event) {
-                saveChangedNote(event.target.noteId);
-            })
+        saveNoteBtn.addEventListener("click", function(event) {
+            saveChangedNote(event.target.noteId);
+        })
 
-            deleteNoteBtn.addEventListener("click", function(event) {
-                deleteNote(event.target.noteId);
-            })
-
+        deleteNoteBtn.addEventListener("click", function(event) {
+            deleteNote(event.target.noteId);
+        })
     })
-
 }
 
 
@@ -211,8 +196,6 @@ function saveChangedNote (noteId) {
     const noteIdTosave = noteId;
     const userToken = userInfo.token;
     let noteToSave = document.getElementById("redTextarea").value;
-
-
 
     fetch("http://localhost:3000/notes/changeNote", {
         method: "POST",

@@ -33,12 +33,3 @@ My Projectplan
 
 <img src="assets/Retrospectives2.jpg" alt="Projectplan">
 
-******************************************************************************************
-
-Kvar att göra: 
-
-Kolla över designen på inloggningen.
-
-Testas för buggar. 
-
-*******************************************************************************************

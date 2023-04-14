@@ -1,4 +1,3 @@
-//const { default: tinymce } = require("tinymce");
 
 export default function whritesite () {
 
@@ -77,6 +76,8 @@ export default function whritesite () {
     })
 }
 
+
+
 function saveNote () {
     const noteNameInput = document.getElementById("noteNameInput").value;
     const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
@@ -103,10 +104,8 @@ function saveNote () {
         const textResult = document.getElementById("textResult")
         textResult.innerHTML = ""
 
-        
     })
     .catch ((err) => {
-        
         saveMessageP.style.color = "red";
         saveMessageP.innerHTML = "Error! Namnet finns redan. Välj en anna rubrik.";
     });

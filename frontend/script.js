@@ -99,7 +99,6 @@ loginUserBtn.addEventListener("click", () => {
         serverMassage.style.color = "green";
         serverMassage.appendChild(okMessege);
         return res.json();
-
         }
     })
     .then(data =>{

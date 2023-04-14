@@ -66,8 +66,6 @@ function createNewUser (req, res) {
 router.post('/login', function(req,res){
   
   let { userEmail, userPassword } = req.body;
-  console.log("email");
-  console.log("password");
 
   req.app.locals.con.connect(function (err) {
 
@@ -86,8 +84,10 @@ router.post('/login', function(req,res){
           console.log(err)
         }
         console.log(result);
+
+        let userToken = (CryptoJS.SHA3(result[0].userId + process.env.TOKEN).toString())
         if(passwordToCheck === result[0].userPassword) {
-          res.json({userId:result[0].userId, token:result[0].userId})
+          res.json({userId:result[0].userId, token:userToken})
           return;
         }
         res.status(401).json("Incurrect password or email")

@@ -1,6 +1,8 @@
+const { SHA3 } = require('crypto-js');
 var express = require('express');
 var router = express.Router();
 const mysql = require('mysql2');
+const CryptoJS = require("crypto-js");
 
 
 
@@ -10,25 +12,29 @@ const mysql = require('mysql2');
 
 router.post('/', function(req, res) {
   let newNote = req.body;
-  console.log(newNote);
+
+  if (req.body.token != CryptoJS.SHA3(req.body.userId+process.env.TOKEN).toString()) {
+    res.send(401);
+    return;
+  }
 
   req.app.locals.con.connect(function (err) {
       if (err) {
-          console.log(err);
+        console.log(err);
       }
 
       let sql = `SELECT noteName FROM notes WHERE noteName = ${mysql.escape(newNote.noteName)}`;
 
       req.app.locals.con.query(sql, function(err, result) {
       if (err) {
-          console.log(err)
-        }
-        console.log("result", result);
-        if (result.length == 0){
-          createNewNote(req, res);  
-          return;     
-        }
-        res.send(401);
+        console.log(err)
+      }
+      console.log("result", result);
+      if (result.length == 0){
+        createNewNote(req, res);  
+        return;     
+      }
+      res.send(401);
     })
   })
 });
@@ -62,20 +68,20 @@ function createNewNote (req, res) {
 
   router.get('/user/:id', function(req, res) {
     let unserId = req.params.id
-  
+
     req.app.locals.con.connect(function (err) {
+      if (err) {
+        console.log(err);
+      }
+  
+      let sql = `SELECT noteId, noteName, userId FROM notes WHERE userID = ${mysql.escape(unserId)}`;
+      console.log(sql);
+  
+      req.app.locals.con.query(sql, function(err, result) {
         if (err) {
-            console.log(err);
+          console.log(err)
         }
-  
-        let sql = `SELECT noteId, noteName, userId FROM notes WHERE userID = ${mysql.escape(unserId)}`;
-        console.log(sql);
-  
-        req.app.locals.con.query(sql, function(err, result) {
-        if (err) {
-            console.log(err)
-          }
-          res.send(result);
+        res.send(result);
       })
     })
   });
@@ -90,22 +96,21 @@ function createNewNote (req, res) {
     let noteId = req.params.noteId
   
     req.app.locals.con.connect(function (err) {
+      if (err) {
+        console.log(err);
+      }
+  
+      let sql = `SELECT noteId, noteName, noteBlob, userId FROM notes WHERE noteId = ${mysql.escape(noteId)}`;
+  
+      req.app.locals.con.query(sql, function(err, data) {
         if (err) {
-            console.log(err);
+          console.log(err)
         }
-  
-        let sql = `SELECT noteId, noteName, noteBlob, userId FROM notes WHERE noteId = ${mysql.escape(noteId)}`;
-  
-        req.app.locals.con.query(sql, function(err, data) {
-        if (err) {
-            console.log(err)
-          }
-          data.map(text => {
-            text.noteBlob = Buffer.from(text.noteBlob).toString();
-          })
-
-          res.json(data);
+        data.map(text => {
+          text.noteBlob = Buffer.from(text.noteBlob).toString();
         })
+        res.json(data);
+      })
     })
   });
 
@@ -117,6 +122,11 @@ function createNewNote (req, res) {
 
   router.post('/changeNote', function(req, res) {
     let noteData = req.body;
+
+    if (req.body.token != CryptoJS.SHA3(req.body.userId+process.env.TOKEN).toString()) {
+      res.send(401);
+      return;
+    }
 
     req.app.locals.con.connect(function (err) {
       if (err) {

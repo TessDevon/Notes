@@ -53,7 +53,7 @@ li:active {
     background-color: #7d7d7d;
     box-shadow: 0 5px #4b4b4b;
     transform: translateY(1px);
-  }
+}
 
 
 .firstSiteSection{
@@ -75,7 +75,6 @@ footer{
     font-size: 1.5rem;
 }
 
-/* visited link */
 .linkFooter {
     color: black;
     font-family:Arial, Helvetica, sans-serif;
@@ -95,10 +94,10 @@ footer{
 
 
 
-
 /*-----------------------------------------------------------------------------------------------------------------------------------
 -------------------  CREATE SITE  ---------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------*/
+
 
 .whriteH2{
     font-size: 3rem;
@@ -117,26 +116,38 @@ footer{
     font-family:Arial, Helvetica, sans-serif;
 }
 
-.textarea {
-    margin-top:50px;
-    padding: 100px;
-}
-
 .textResult{
     background-color: white;
     border-radius: 10px;
-    margin: 10px;
+    margin: 5px;
     margin-top:150px;
     padding: 50px;
-
 }
+
+.textResult > h1 {
+    font-size: 3rem;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.textResult > h3 {
+    font-size: 2rem;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.textResult > p {
+    font-size: 1.5rem;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
 
 .noteNameInput{
     font-size:1.5rem;
     margin-left: 15px;
     margin-top:25px;
     margin-bottom: 40px;
-
 }
 
 .seeNoteInDOMBtn, .saveNoteBtn{
@@ -166,6 +177,7 @@ footer{
     text-align:center; 
     font-family:Arial, Helvetica, sans-serif;
 }
+
 .noteName{
     background-color:white;
     text-align:center;
