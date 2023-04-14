@@ -73,7 +73,6 @@ function createNewNote (req, res) {
         if (err) {
             console.log(err)
           }
-      //    console.log("result", result);
           res.send(result);
       })
     })
@@ -123,15 +122,14 @@ function createNewNote (req, res) {
       req.app.locals.con.query(sql, function(err, data) {
         if (err) {
           console.log(err)
-        }
-        // console.log("data", data);   
+        }  
         res.json(data);
       })
     })
   });
 
 
-  
+
   //
   // Radera bestämd note genom en inloggad användare. 
   //
@@ -147,8 +145,7 @@ function createNewNote (req, res) {
       req.app.locals.con.query(sql, function(err, data) {
         if (err) {
           console.log(err)
-        }
-        // console.log("data", data);   
+        } 
         res.json(data);
       })
     })

@@ -16,7 +16,6 @@ h1{
 }
 
 #loginUser, #savenewUser, .userh3 {
-   /* display: inline; */
     padding: 15px;
     font-family:Arial, Helvetica, sans-serif;
 }
@@ -111,7 +110,6 @@ footer{
     background-color: #cccccc;
     background-size: cover;
     padding: 20px;
-/*    font-size:1.5rem;*/
 }
 
 .noteNameInfo{
@@ -119,10 +117,17 @@ footer{
     font-family:Arial, Helvetica, sans-serif;
 }
 
+.textarea {
+    margin-top:50px;
+    padding: 100px;
+}
+
 .textResult{
     background-color: white;
     border-radius: 10px;
-    margin: 2px;
+    margin: 10px;
+    margin-top:150px;
+    padding: 50px;
 
 }
 

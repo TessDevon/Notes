@@ -106,7 +106,6 @@ function changeNote (data) {
     console.log(noteNameToChange);
 
     let root = document.getElementById("root")
-    //root.innerHTML = "";
 
     const whriteH2 = document.createElement("h2");
     whriteH2.id = "whriteH2";
@@ -148,11 +147,14 @@ function changeNote (data) {
         }
     })    
     
-
+const changeContainer = document.createElement("div");
+        root.appendChild(changeContainer);
 
     seeNotesInDOMBtn.addEventListener("click", function(event) {
 
         document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
+
+        changeContainer.innerHTML = "";
 
         const saveNoteBtn = document.createElement("button");
         saveNoteBtn.id = "saveNoteBtn";
@@ -160,19 +162,19 @@ function changeNote (data) {
         let noteId = event.target.noteId;
         saveNoteBtn.noteId = noteId
         saveNoteBtn.innerHTML = "Spara över dokumentet";
-        root.appendChild(saveNoteBtn);
+        changeContainer.appendChild(saveNoteBtn);
 
         const deleteNoteBtn = document.createElement("button");
         deleteNoteBtn.id = "deleteNoteBtn";
         deleteNoteBtn.className = "deleteNoteBtn";
         deleteNoteBtn.noteId = noteId
         deleteNoteBtn.innerHTML = "Radera dokumentet";
-        root.appendChild(deleteNoteBtn);
+        changeContainer.appendChild(deleteNoteBtn);
 
         const saveMessageP = document.createElement("p");
         saveMessageP.id = "saveMessageP";
         saveMessageP.className = "saveMessageP";
-        root.appendChild(saveMessageP);
+        changeContainer.appendChild(saveMessageP);
 
             saveNoteBtn.addEventListener("click", function(event) {
                 saveChangedNote(event.target.noteId);
@@ -189,7 +191,6 @@ function changeNote (data) {
 
 function saveChangedNote (noteId) {
 
-    const noteNameInput = document.getElementById("noteNameInput").value;
     const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
     const userIdToSave = userInfo.id;
     const noteIdTosave = noteId;
@@ -203,13 +204,11 @@ function saveChangedNote (noteId) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ noteId:noteIdTosave, noteName:noteNameInput, noteBlob:noteToSave, userId:userIdToSave, token:userToken})
+        body: JSON.stringify({ noteId:noteIdTosave, noteBlob:noteToSave, userId:userIdToSave, token:userToken})
     })
     .then(res => res.json())
     .then(data => {
-        //console.log("skapa item", data);
-        //printTodos();
-        
+        location.reload()
     })
 } 
 
@@ -228,6 +227,6 @@ function deleteNote (noteId) {
     })
     .then(res => res.json())
     .then(data => {
-        
+        location.reload()
     })
 } 

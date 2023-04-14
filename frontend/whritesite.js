@@ -50,19 +50,24 @@ export default function whritesite () {
         }
     })
 
+    const saveContainer = document.createElement("div");
+        root.appendChild(saveContainer);
+
     seeNotesInDOMBtn.addEventListener("click", function() {
 
         document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
+
+        saveContainer.innerHTML = "";
 
         const saveNoteBtn = document.createElement("button");
         saveNoteBtn.id = "saveNoteBtn";
         saveNoteBtn.className = "saveNoteBtn";
         saveNoteBtn.innerHTML = "Spara dokumentet";
-        root.appendChild(saveNoteBtn);
+        saveContainer.appendChild(saveNoteBtn);
         const saveMessageP = document.createElement("p");
         saveMessageP.id = "saveMessageP";
         saveMessageP.className = "saveMessageP";
-        root.appendChild(saveMessageP);
+        saveContainer.appendChild(saveMessageP);
 
             saveNoteBtn.addEventListener("click", function() {
                 saveNote();

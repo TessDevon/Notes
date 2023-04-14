@@ -51,7 +51,6 @@ const serverMessage = document.getElementById("errorMessage");
 
 
 saveUserBtn.addEventListener("click", () => {
-   // console.log("newFirstname").value;
 
     fetch("http://localhost:3000/users", {
         method: "POST",
@@ -86,7 +85,6 @@ let loginUserBtn = document.getElementById("loginUserBtn");
 const serverMassage = document.getElementById("serverMassage");
 loginUserBtn.addEventListener("click", () => {
     serverMassage.innerHTML = ""
-    //console.log("click", saveNewUser.value);
 
     fetch("http://localhost:3000/users/login", {
         method: "POST",
@@ -97,7 +95,7 @@ loginUserBtn.addEventListener("click", () => {
     })
     .then(res => {
         if (res.ok) {
-        const okMessege = document.createTextNode("Välkommen till vår webshop!");
+        const okMessege = document.createTextNode("Välkommen till vår textvärld!");
         serverMassage.style.color = "green";
         serverMassage.appendChild(okMessege);
         return res.json();
