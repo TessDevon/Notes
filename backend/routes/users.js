@@ -4,6 +4,7 @@ const CryptoJS = require("crypto-js");
 const mysql = require('mysql2');
 
 
+
 //
 // REGISTRERA NY ANVÄNDARE
 //
@@ -57,6 +58,7 @@ function createNewUser (req, res) {
   };
 
 
+  
 //
 // LOGGA IN ANVÄNDARE 
 //

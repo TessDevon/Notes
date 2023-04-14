@@ -71,6 +71,9 @@ function findAndWhriteUserNotes () {
 
 function ChangeSavedNote (noteId) {
 
+    let root = document.getElementById("root")
+
+
     console.log(noteId);
 
     fetch("http://localhost:3000/notes/" + noteId, {
@@ -88,6 +91,7 @@ function ChangeSavedNote (noteId) {
 
         .then(data => {
 
+
             changeNote(data);
 
         })
@@ -98,26 +102,37 @@ function ChangeSavedNote (noteId) {
 };
 
 function changeNote (data) {
-
+        
     console.log(data);
+
+    let root = document.getElementById("root")
+
+    let editingContainer = document.getElementById("editingContainer");
+        if (editingContainer) {
+            editingContainer.innerHTML = "";
+        } else {
+            editingContainer = document.createElement("div");
+            editingContainer.id = "editingContainer";
+            editingContainer.classList = "editingContainer";
+            root.appendChild(editingContainer);    
+        }
 
     const noteNameToChange = data[0].noteName;
     const noteBlobToChange = data[0].noteBlob;
     console.log(noteNameToChange);
 
-    let root = document.getElementById("root")
 
     const whriteH2 = document.createElement("h2");
     whriteH2.id = "whriteH2";
     whriteH2.className = "whriteH2";
-    root.appendChild(whriteH2);
+    editingContainer.appendChild(whriteH2);
     whriteH2.innerHTML = "Redigera  " + noteNameToChange;
     
     let textarea = document.createElement("TEXTAREA");
-    textarea.id = "textarea";
-    textarea.className = "textarea";
+    textarea.id = "redTextarea";
+    textarea.className = "redTextarea";
     textarea.innerHTML = noteBlobToChange;
-    root.appendChild(textarea);
+    editingContainer.appendChild(textarea);
 
     const seeNotesInDOMBtn = document.createElement("button");
     seeNotesInDOMBtn.id = "seeNoteInDOMBtn";
@@ -125,19 +140,19 @@ function changeNote (data) {
     seeNotesInDOMBtn.noteId = noteId
     seeNotesInDOMBtn.className = "seeNoteInDOMBtn";
     seeNotesInDOMBtn.innerHTML = "Visa";
-    root.appendChild(seeNotesInDOMBtn);
+    editingContainer.appendChild(seeNotesInDOMBtn);
 
 
-    
     let seeNotesInDOM = document.createElement("div");
     seeNotesInDOM.id  = "textResult";
     seeNotesInDOM.className = "textResult";
     
-    root.appendChild(seeNotesInDOM);
+    editingContainer.appendChild(seeNotesInDOM);
 
+    tinymce.remove();
 
     tinymce.init({
-        selector: "textarea",
+        selector: "#redTextarea",
         plugin: "connected",
         toolbar: "undo redo | forecolor backcolor | styleselect bold italic | alignleft alignright | H1 H3 code",  
         setup: function(editor) {
@@ -148,11 +163,11 @@ function changeNote (data) {
     })    
     
 const changeContainer = document.createElement("div");
-        root.appendChild(changeContainer);
+        editingContainer.appendChild(changeContainer);
 
     seeNotesInDOMBtn.addEventListener("click", function(event) {
 
-        document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
+        document.getElementById("textResult").innerHTML = document.getElementById("redTextarea").value;
 
         changeContainer.innerHTML = "";
 
@@ -195,7 +210,7 @@ function saveChangedNote (noteId) {
     const userIdToSave = userInfo.id;
     const noteIdTosave = noteId;
     const userToken = userInfo.token;
-    let noteToSave = document.getElementById("textarea").value;
+    let noteToSave = document.getElementById("redTextarea").value;
 
 
 

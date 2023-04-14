@@ -3,6 +3,7 @@ var router = express.Router();
 const mysql = require('mysql2');
 
 
+
 //
 // SPARA NOTE 
 //
@@ -32,7 +33,6 @@ router.post('/', function(req, res) {
   })
 });
 
-
 function createNewNote (req, res) {
   let newNote = req.body;
   console.log(newNote);
@@ -54,6 +54,8 @@ function createNewNote (req, res) {
   })
 }
   
+
+
   //
   // HÄMTA EN SPECIFIK ANVÄNDARES NOTES. 
   //
@@ -66,7 +68,7 @@ function createNewNote (req, res) {
             console.log(err);
         }
   
-        let sql = `SELECT noteId, noteName, userId FROM notes WHERE userID = ${unserId}`;
+        let sql = `SELECT noteId, noteName, userId FROM notes WHERE userID = ${mysql.escape(unserId)}`;
         console.log(sql);
   
         req.app.locals.con.query(sql, function(err, result) {
@@ -77,6 +79,8 @@ function createNewNote (req, res) {
       })
     })
   });
+
+
 
   //
   // HÄMTA EN NOTE GENOM ID. 
@@ -90,7 +94,7 @@ function createNewNote (req, res) {
             console.log(err);
         }
   
-        let sql = `SELECT noteId, noteName, noteBlob, userId FROM notes WHERE noteId = '${noteId}'`;
+        let sql = `SELECT noteId, noteName, noteBlob, userId FROM notes WHERE noteId = ${mysql.escape(noteId)}`;
   
         req.app.locals.con.query(sql, function(err, data) {
         if (err) {
@@ -99,12 +103,12 @@ function createNewNote (req, res) {
           data.map(text => {
             text.noteBlob = Buffer.from(text.noteBlob).toString();
           })
-         // console.log("data", data);  
-         
+
           res.json(data);
         })
     })
   });
+
 
 
   //

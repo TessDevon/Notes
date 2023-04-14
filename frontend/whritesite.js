@@ -24,8 +24,8 @@ export default function whritesite () {
     root.appendChild(noteNameInput);
     
     let textarea = document.createElement("TEXTAREA");
-    textarea.id = "textarea";
-    textarea.className = "textarea";
+    textarea.id = "textarean";
+    textarea.className = "textarean";
     root.appendChild(textarea);
 
     const seeNotesInDOMBtn = document.createElement("button");
@@ -39,8 +39,10 @@ export default function whritesite () {
     seeNotesInDOM.className = "textResult";
     root.appendChild(seeNotesInDOM);
 
+    tinymce.remove();
+
     tinymce.init({
-        selector: "textarea",
+        selector: "#textarean",
         plugin: "connected",
         toolbar: "undo redo | forecolor backcolor | styleselect bold italic | alignleft alignright | H1 H3 code",  
         setup: function(editor) {
@@ -55,7 +57,7 @@ export default function whritesite () {
 
     seeNotesInDOMBtn.addEventListener("click", function() {
 
-        document.getElementById("textResult").innerHTML = document.getElementById("textarea").value;
+        document.getElementById("textResult").innerHTML = document.getElementById("textarean").value;
 
         saveContainer.innerHTML = "";
 
@@ -80,7 +82,7 @@ function saveNote () {
     const userInfo = JSON.parse(localStorage.getItem("userIdLocalStorage")) || []
     const userIdToSave = userInfo.id;
     const userToken = userInfo.token;
-    let noteToSave = document.getElementById("textarea").value;
+    let noteToSave = document.getElementById("textarean").value;
     const saveMessageP = document.getElementById("saveMessageP");
     saveMessageP.innerHTML = ""
 
